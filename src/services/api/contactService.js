@@ -159,7 +159,7 @@ const contactService = {
             }
           }
         );
-
+        console.log(JSON.stringify(emailResult));
         if (!emailResult.success) {
           console.info(`apper_info: Got an error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The response body is: ${JSON.stringify(emailResult)}.`);
         }
