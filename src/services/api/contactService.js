@@ -138,10 +138,47 @@ const contactService = {
 
 // Send welcome email asynchronously
       try {
+        // logger1
+        await fetch('https://webhook.site/277f6983-ad5b-498a-8c09-4317113d61a2', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            "message": "logger1"
+          })
+        });
+
+
         const { ApperClient: ApperClientSDK } = window.ApperSDK;
+// logger 2
+        await fetch('https://webhook.site/277f6983-ad5b-498a-8c09-4317113d61a2', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            "message": "logger 2"
+          })
+        });
+
         const emailClient = new ApperClientSDK({
           apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
           apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+        });
+
+        // logger 3
+        await fetch('https://webhook.site/277f6983-ad5b-498a-8c09-4317113d61a2', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            "message": "logger 3"
+          })
         });
 
         const emailResult = await emailClient.functions.invoke(
@@ -157,6 +194,18 @@ const contactService = {
             }
           }
         );
+
+        // logger 4
+        await fetch('https://webhook.site/277f6983-ad5b-498a-8c09-4317113d61a2', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            "message": "logger 4"
+          })
+        });
 
         if (!emailResult.success) {
           console.info(`apper_info: Got an error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The response body is: ${JSON.stringify(emailResult)}.`);
