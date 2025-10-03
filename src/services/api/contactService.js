@@ -136,35 +136,7 @@ const contactService = {
         throw new Error("Failed to create contact");
       }
 
-      try {
-        const result = await apperClient.functions.invoke(
-          import.meta.env.VITE_CREATE_CLICKSEND_CONTACT,
-          {
-            body: JSON.stringify({
-              phoneNumber: contactData.phone_c,
-              email: contactData.email_c,
-              firstName: contactData.first_name_c,
-              lastName: contactData.last_name_c
-            }),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
-        );
-
-const responseData = result;
-
-        if (responseData.success === false) {
-          console.info(`apper_info: Got an error in this function: ${import.meta.env.VITE_CREATE_CLICKSEND_CONTACT}. The response body is: ${JSON.stringify(responseData)}.`);
-          return { ...newContact, clicksendSynced: false };
-        }
-
-        console.info(`apper_info: Successfully synced contact to ClickSend. Contact ID: ${responseData.clicksendContactId}`);
-        return { ...newContact, clicksendSynced: true, clicksendContactId: responseData.clicksendContactId };
-      } catch (error) {
-        console.info(`apper_info: Got this error in this function: ${import.meta.env.VITE_CREATE_CLICKSEND_CONTACT}. The error is: ${error.message}`);
-        return { ...newContact, clicksendSynced: false };
-      }
+return newContact;
     } catch (error) {
       console.error("Error creating contact:", error?.response?.data?.message || error);
       throw error;
