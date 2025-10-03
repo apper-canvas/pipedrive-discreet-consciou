@@ -211,7 +211,7 @@ const contactService = {
           console.info(`apper_info: Got an error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The response body is: ${JSON.stringify(emailResult)}.`);
         }
       } catch (emailError) {
-        console.info(`apper_info: Got this error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The error is: ${emailError.message}`);
+        console.info(`apper_info: Sample Error Got this error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The error is: ${emailError.message}`);
       }
 
       return newContact;
