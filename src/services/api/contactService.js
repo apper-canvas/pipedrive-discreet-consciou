@@ -136,7 +136,36 @@ const contactService = {
         throw new Error("Failed to create contact");
       }
 
-return newContact;
+// Send welcome email asynchronously
+      try {
+        const { ApperClient: ApperClientSDK } = window.ApperSDK;
+        const emailClient = new ApperClientSDK({
+          apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+          apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+        });
+
+        const emailResult = await emailClient.functions.invoke(
+          import.meta.env.VITE_SEND_WELCOME_EMAIL,
+          {
+            body: JSON.stringify({
+              firstName: newContact.first_name_c,
+              lastName: newContact.last_name_c,
+              email: newContact.email_c
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+
+        if (!emailResult.success) {
+          console.info(`apper_info: Got an error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The response body is: ${JSON.stringify(emailResult)}.`);
+        }
+      } catch (emailError) {
+        console.info(`apper_info: Got this error in this function: ${import.meta.env.VITE_SEND_WELCOME_EMAIL}. The error is: ${emailError.message}`);
+      }
+
+      return newContact;
     } catch (error) {
       console.error("Error creating contact:", error?.response?.data?.message || error);
       throw error;
